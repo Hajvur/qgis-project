@@ -24,6 +24,11 @@
         <title>Demografia Wrocławia</title>
     </head>
     <body>
+        <div id="slider-container" style="margin: 10px;">
+            <label for="year-slider">Rok: </label>
+            <input type="range" id="year-slider" min="1998" max="2023" step="25" value="2023">
+            <span id="selected-year">2023</span>
+        </div>
         <div id="map">
         </div>
         <script src="js/qgis2web_expressions.js"></script>
@@ -51,6 +56,7 @@
         <script src="data/sumamieszkancow2023_10.js"></script>
         <script src="data/roznicawliczbiemieszkancow2023_11.js"></script>
         <script>
+        
         var highlightLayer;
         function highlightFeature(e) {
             highlightLayer = e.target;
@@ -2345,6 +2351,66 @@
             propertyName: 'NAZWA'}));
         document.getElementsByClassName('search-button')[0].className +=
          ' fa fa-binoculars';
+        
+        var suma_mieszkancow = L.layerGroup([layer_sumamieszkancow2023_10, layer_sumamieszkancow1998_5]);
+        var roznica_w_liczbie_mieszkancow = L.layerGroup([layer_roznicawliczbiemieszkancow2023_11]);
+        var osoby_w_wieku_produkcyjnym = L.layerGroup([layer_osobywwiekuprodukcyjnym2023_9, layer_osobywwiekuprodukcyjnym1998_4]);
+        var dzieci = L.layerGroup([layer_dzieci2023_8, layer_dzieci1998_3]);
+        var seniorzy = L.layerGroup([layer_seniorzy2023_7, layer_seniorzy1998_2]);
+        var gestosc =  L.layerGroup([layer_gestosczaludnienia2023_6, layer_gestosczaludnienia1998_1]);
+
+        var overlays = {
+            "Suma mieszkańców": suma_mieszkancow,
+            "Różnica w liczbie mieszkańców": roznica_w_liczbie_mieszkancow,
+            "% osób w wieku produkcyjnym": osoby_w_wieku_produkcyjnym,
+            "% dzieci": dzieci,
+            "% seniorów": seniorzy,
+            "Gęstość zaludnienia": gestosc,
+        };
+        var layerControl = L.control.layers(overlays).addTo(map);
+
+        function updateLayers(selectedYear) {
+            // Najpierw usuwamy wszystkie warstwy
+            map.removeLayer(layer_sumamieszkancow2023_10);
+            map.removeLayer(layer_sumamieszkancow1998_5);
+            map.removeLayer(layer_osobywwiekuprodukcyjnym2023_9);
+            map.removeLayer(layer_osobywwiekuprodukcyjnym1998_4);
+            map.removeLayer(layer_dzieci2023_8);
+            map.removeLayer(layer_dzieci1998_3);
+            map.removeLayer(layer_seniorzy2023_7);
+            map.removeLayer(layer_seniorzy1998_2);
+            map.removeLayer(layer_gestosczaludnienia2023_6);
+            map.removeLayer(layer_gestosczaludnienia1998_1);
+
+            // Dodajemy odpowiednie warstwy dla wybranego roku
+            if (selectedYear === 1998) {
+                layer_sumamieszkancow1998_5.addTo(map);
+                layer_osobywwiekuprodukcyjnym1998_4.addTo(map);
+                layer_dzieci1998_3.addTo(map);
+                layer_seniorzy1998_2.addTo(map);
+                layer_gestosczaludnienia1998_1.addTo(map);
+            } else if (selectedYear === 2023) {
+                layer_sumamieszkancow2023_10.addTo(map);
+                layer_osobywwiekuprodukcyjnym2023_9.addTo(map);
+                layer_dzieci2023_8.addTo(map);
+                layer_seniorzy2023_7.addTo(map);
+                layer_gestosczaludnienia2023_6.addTo(map);
+            }
+        }
+
+        // Nasłuchiwanie zmian na suwaku
+        const yearSlider = document.getElementById('year-slider');
+        const selectedYearSpan = document.getElementById('selected-year');
+
+        // Obsługa zmiany roku
+        yearSlider.addEventListener('input', function () {
+            const selectedYear = parseInt(this.value, 10);
+            selectedYearSpan.textContent = selectedYear;
+            updateLayers(selectedYear);
+        });
+
+        // Inicjalizacja z rokiem 2023
+        updateLayers(2023);
         </script>
     </body>
 </html>
