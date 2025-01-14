@@ -20,6 +20,36 @@
             padding: 0;
             margin: 0;
         }
+        .radio-container {
+            width: 233px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            position: absolute;
+            bottom: 30px;
+            right: 10px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+        .radio-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .radio-item label {
+            margin-left: 5px;
+        }
+        #slider-container {
+        position: absolute;
+        bottom: 180px;
+        right: 0px; 
+        z-index: 1001; 
+        background: white;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
         </style>
         <title>Demografia Wrocławia</title>
     </head>
@@ -56,7 +86,7 @@
         <script src="data/sumamieszkancow2023_10.js"></script>
         <script src="data/roznicawliczbiemieszkancow2023_11.js"></script>
         <script>
-        
+
         var highlightLayer;
         function highlightFeature(e) {
             highlightLayer = e.target;
@@ -93,13 +123,6 @@
          }
          return tempDiv.innerHTML;
         }
-                L.control.scale({
-            position: 'bottomleft',
-            metric: true,
-            imperial: false,
-            maxWidth: 200
-        }).addTo(map);
-
         // add class to format popup if it contains media
 		function addClassToPopupIfMedia(content, popup) {
 			var tempDiv = document.createElement('div');
@@ -120,6 +143,12 @@
             this.update();
             return this._div;
         };
+        L.control.scale({
+            position: 'bottomleft',
+            metric: true,
+            imperial: false,
+            maxWidth: 200
+        }).addTo(map);
         title.update = function () {
             this._div.innerHTML = '<h2>Demografia Wrocławia</h2>';
         };
@@ -2367,50 +2396,92 @@
             "% seniorów": seniorzy,
             "Gęstość zaludnienia": gestosc,
         };
-        var layerControl = L.control.layers(overlays).addTo(map);
+    var selectedLayer = 'dzieci'; 
+    var currentYear = 2023;
 
-        function updateLayers(selectedYear) {
-            // Najpierw usuwamy wszystkie warstwy
-            map.removeLayer(layer_sumamieszkancow2023_10);
-            map.removeLayer(layer_sumamieszkancow1998_5);
-            map.removeLayer(layer_osobywwiekuprodukcyjnym2023_9);
-            map.removeLayer(layer_osobywwiekuprodukcyjnym1998_4);
-            map.removeLayer(layer_dzieci2023_8);
-            map.removeLayer(layer_dzieci1998_3);
-            map.removeLayer(layer_seniorzy2023_7);
-            map.removeLayer(layer_seniorzy1998_2);
-            map.removeLayer(layer_gestosczaludnienia2023_6);
-            map.removeLayer(layer_gestosczaludnienia1998_1);
+    function updateLayers() {
+        map.eachLayer(function (layer) {
+            if (layer !== layer_OpenStreetMap_0) {
+                map.removeLayer(layer);
+            }
+        });
 
-            // Dodajemy odpowiednie warstwy dla wybranego roku
-            if (selectedYear === 1998) {
+        if (selectedLayer === 'Suma mieszkańców') {
+            if (currentYear === 1998) {
                 layer_sumamieszkancow1998_5.addTo(map);
-                layer_osobywwiekuprodukcyjnym1998_4.addTo(map);
-                layer_dzieci1998_3.addTo(map);
-                layer_seniorzy1998_2.addTo(map);
-                layer_gestosczaludnienia1998_1.addTo(map);
-            } else if (selectedYear === 2023) {
+            } else if (currentYear === 2023) {
                 layer_sumamieszkancow2023_10.addTo(map);
+            }
+        } else if (selectedLayer === 'Różnica w liczbie mieszkańców') {
+            layer_roznicawliczbiemieszkancow2023_11.addTo(map);
+        } else if (selectedLayer === '% osób w wieku produkcyjnym') {
+            if (currentYear === 1998) {
+                layer_osobywwiekuprodukcyjnym1998_4.addTo(map);
+            } else if (currentYear === 2023) {
                 layer_osobywwiekuprodukcyjnym2023_9.addTo(map);
+            }
+        } else if (selectedLayer === '% dzieci') {
+            if (currentYear === 1998) {
+                layer_dzieci1998_3.addTo(map);
+            } else if (currentYear === 2023) {
                 layer_dzieci2023_8.addTo(map);
+            }
+        } else if (selectedLayer === '% seniorów') {
+            if (currentYear === 1998) {
+                layer_seniorzy1998_2.addTo(map);
+            } else if (currentYear === 2023) {
                 layer_seniorzy2023_7.addTo(map);
+            }
+        } else if (selectedLayer === 'Gęstość zaludnienia') {
+            if (currentYear === 1998) {
+                layer_gestosczaludnienia1998_1.addTo(map);
+            } else if (currentYear === 2023) {
                 layer_gestosczaludnienia2023_6.addTo(map);
             }
         }
+    }
 
-        // Nasłuchiwanie zmian na suwaku
-        const yearSlider = document.getElementById('year-slider');
-        const selectedYearSpan = document.getElementById('selected-year');
+    //var layerControl = L.control.layers(overlays).addTo(map);
 
-        // Obsługa zmiany roku
-        yearSlider.addEventListener('input', function () {
-            const selectedYear = parseInt(this.value, 10);
-            selectedYearSpan.textContent = selectedYear;
-            updateLayers(selectedYear);
-        });
+    //map.on('overlayadd', function (eventLayer) {
+    //    selectedLayer = eventLayer.name;
+    //    updateLayers();
+    //});    
+    var radioContainer = L.DomUtil.create('div', 'radio-container');
+        for (var key in overlays) {
+            var radioItem = L.DomUtil.create('div', 'radio-item', radioContainer);
+            var radioInput = L.DomUtil.create('input', '', radioItem);
+            radioInput.type = 'radio';
+            radioInput.name = 'layerRadio';
+            radioInput.value = key;
+            radioInput.id = key;
+            if (key === selectedLayer) {
+                radioInput.checked = true;
+            }
 
-        // Inicjalizacja z rokiem 2023
-        updateLayers(2023);
+            var radioLabel = L.DomUtil.create('label', '', radioItem);
+            radioLabel.htmlFor = key;
+            radioLabel.innerHTML = key;
+
+            L.DomEvent.on(radioInput, 'change', function (e) {
+                selectedLayer = e.target.value;
+                updateLayers();
+            });
+        }
+
+        L.DomUtil.get(map.getContainer()).appendChild(radioContainer);
+
+
+    const yearSlider = document.getElementById('year-slider');
+    const selectedYearSpan = document.getElementById('selected-year');
+
+    yearSlider.addEventListener('input', function () {
+        currentYear = parseInt(this.value, 10);
+        selectedYearSpan.textContent = currentYear;
+        updateLayers();
+    });
+
+    updateLayers();
         </script>
     </body>
 </html>
