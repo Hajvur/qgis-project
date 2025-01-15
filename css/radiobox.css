@@ -1,0 +1,20 @@
+.radio-container {
+            width: 233px;
+            background: white;
+            padding: 10px;
+            border-radius: 10px;
+            position: absolute;
+            bottom: 30px;
+            right: 10px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+        }
+        .radio-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        .radio-item label {
+            margin-left: 5px;
+        }
