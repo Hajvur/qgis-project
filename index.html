@@ -59,177 +59,6 @@
         <script src="data/sumamieszkancow2023_10.js"></script>
         <script src="data/roznicawliczbiemieszkancow2023_11.js"></script>
         <script>
-            function updateLegend(layerName) {
-                var legend = document.getElementById('legend');
-                legend.innerHTML = ''; // Clear existing legend
-
-                var ranges = [];
-
-                if (layerName === 'layer_gestosczaludnienia1998_1') {
-                    ranges = [
-                        { min: 16, max: 420.4, color: 'rgba(255,255,212,1.0)' },
-                        { min: 420.4, max: 820.8, color: 'rgba(255,238,181,1.0)' },
-                        { min: 820.8, max: 1221.2, color: 'rgba(254,221,150,1.0)' },
-                        { min: 1221.2, max: 1621.6, color: 'rgba(254,196,108,1.0)' },
-                        { min: 1621.6, max: 2022, color: 'rgba(254,167,63,1.0)' },
-                        { min: 2022, max: 2422.4, color: 'rgba(246,140,35,1.0)' },
-                        { min: 2422.4, max: 2822.8, color: 'rgba(229,114,23,1.0)' },
-                        { min: 2822.8, max: 3223.2, color: 'rgba(210,90,13,1.0)' },
-                        { min: 3223.2, max: 3623.6, color: 'rgba(181,71,8,1.0)' },
-                        { min: 3623.6, max: 20040, color: 'rgba(153,52,4,1.0)' }
-                    ];
-                } else if (layerName === 'layer_seniorzy1998_2') {
-            ranges = [
-                { min: 0, max: 13.746, color: 'rgba(247,252,245,1.0)' },
-                { min: 13.746, max: 15.292, color: 'rgba(232,246,227,1.0)' },
-                { min: 15.292, max: 16.39, color: 'rgba(208,236,201,1.0)' },
-                { min: 16.39, max: 17.232, color: 'rgba(178,224,171,1.0)' },
-                { min: 17.232, max: 19.35, color: 'rgba(142,208,140,1.0)' },
-                { min: 19.35, max: 20.718, color: 'rgba(102,189,111,1.0)' },
-                { min: 20.718, max: 23.078, color: 'rgba(61,167,90,1.0)' },
-                { min: 23.078, max: 24.326, color: 'rgba(36,140,69,1.0)' },
-                { min: 24.326, max: 26.47, color: 'rgba(3,112,46,1.0)' },
-                { min: 26.47, max: 31.84, color: 'rgba(0,68,27,1.0)' }
-            ];
-        } else if (layerName === 'layer_dzieci1998_3') {
-            ranges = [
-                { min: 0, max: 13.746, color: 'rgba(247,252,245,1.0)' },
-                { min: 13.746, max: 15.292, color: 'rgba(232,246,227,1.0)' },
-                { min: 15.292, max: 16.39, color: 'rgba(208,236,201,1.0)' },
-                { min: 16.39, max: 17.232, color: 'rgba(178,224,171,1.0)' },
-                { min: 17.232, max: 19.35, color: 'rgba(142,208,140,1.0)' },
-                { min: 19.35, max: 20.718, color: 'rgba(102,189,111,1.0)' },
-                { min: 20.718, max: 23.078, color: 'rgba(61,167,90,1.0)' },
-                { min: 23.078, max: 24.326, color: 'rgba(36,140,69,1.0)' },
-                { min: 24.326, max: 26.47, color: 'rgba(3,112,46,1.0)' },
-                { min: 26.47, max: 31.84, color: 'rgba(0,68,27,1.0)' }
-            ];
-        } else if (layerName === 'layer_osobywwiekuprodukcyjnym1998_4') {
-            ranges = [
-                { min: 47.94, max: 49.242, color: 'rgba(247,251,255,1.0)' },
-                { min: 49.242, max: 50.574, color: 'rgba(226,237,248,1.0)' },
-                { min: 50.574, max: 52.31, color: 'rgba(205,224,241,1.0)' },
-                { min: 52.31, max: 53.57, color: 'rgba(175,209,231,1.0)' },
-                { min: 53.57, max: 54.32, color: 'rgba(137,190,220,1.0)' },
-                { min: 54.32, max: 55.838, color: 'rgba(96,166,210,1.0)' },
-                { min: 55.838, max: 56.602, color: 'rgba(62,142,196,1.0)' },
-                { min: 56.602, max: 58.19, color: 'rgba(34,114,181,1.0)' },
-                { min: 58.19, max: 59.098, color: 'rgba(10,84,158,1.0)' },
-                { min: 59.098, max: 70.8, color: 'rgba(8,48,107,1.0)' }
-            ];
-        } else if (layerName === 'layer_sumamieszkancow1998_5') {
-            ranges = [
-                { min: 12, max: 698.6, color: 'rgba(252,251,253,1.0)' },
-                { min: 698.6, max: 1115.4, color: 'rgba(241,239,246,1.0)' },
-                { min: 1115.4, max: 1961, color: 'rgba(224,224,238,1.0)' },
-                { min: 1961, max: 2553.2, color: 'rgba(201,202,227,1.0)' },
-                { min: 2553.2, max: 4114, color: 'rgba(175,174,212,1.0)' },
-                { min: 4114, max: 6151, color: 'rgba(150,146,196,1.0)' },
-                { min: 6151, max: 8481.6, color: 'rgba(124,118,182,1.0)' },
-                { min: 8481.6, max: 13814.8, color: 'rgba(102,73,159,1.0)' },
-                { min: 13814.8, max: 19154, color: 'rgba(86,42,144,1.0)' },
-                { min: 19154, max: 54830, color: 'rgba(63,0,125,1.0)' }
-            ];
-        } else if (layerName === 'layer_gestosczaludnienia2023_6') {
-            ranges = [
-                { min: 16, max: 420.4, color: 'rgba(255,255,212,1.0)' },
-                { min: 420.4, max: 820.8, color: 'rgba(255,238,181,1.0)' },
-                { min: 820.8, max: 1221.2, color: 'rgba(254,221,150,1.0)' },
-                { min: 1221.2, max: 1621.6, color: 'rgba(254,196,108,1.0)' },
-                { min: 1621.6, max: 2022, color: 'rgba(254,167,63,1.0)' },
-                { min: 2022, max: 2422.4, color: 'rgba(246,140,35,1.0)' },
-                { min: 2422.4, max: 2822.8, color: 'rgba(229,114,23,1.0)' },
-                { min: 2822.8, max: 3223.2, color: 'rgba(210,90,13,1.0)' },
-                { min: 3223.2, max: 3623.6, color: 'rgba(181,71,8,1.0)' },
-                { min: 3623.6, max: 20040, color: 'rgba(153,52,4,1.0)' }
-            ];
-        } else if (layerName === 'layer_seniorzy2023_7') {
-            ranges = [
-                { min: 0, max: 13.746, color: 'rgba(247,252,245,1.0)' },
-                { min: 13.746, max: 15.292, color: 'rgba(232,246,227,1.0)' },
-                { min: 15.292, max: 16.39, color: 'rgba(208,236,201,1.0)' },
-                { min: 16.39, max: 17.232, color: 'rgba(178,224,171,1.0)' },
-                { min: 17.232, max: 19.35, color: 'rgba(142,208,140,1.0)' },
-                { min: 19.35, max: 20.718, color: 'rgba(102,189,111,1.0)' },
-                { min: 20.718, max: 23.078, color: 'rgba(61,167,90,1.0)' },
-                { min: 23.078, max: 24.326, color: 'rgba(36,140,69,1.0)' },
-                { min: 24.326, max: 26.47, color: 'rgba(3,112,46,1.0)' },
-                { min: 26.47, max: 31.84, color: 'rgba(0,68,27,1.0)' }
-            ];
-        } else if (layerName === 'layer_dzieci2023_8') {
-            ranges = [
-                { min: 0, max: 13.746, color: 'rgba(247,252,245,1.0)' },
-                { min: 13.746, max: 15.292, color: 'rgba(232,246,227,1.0)' },
-                { min: 15.292, max: 16.39, color: 'rgba(208,236,201,1.0)' },
-                { min: 16.39, max: 17.232, color: 'rgba(178,224,171,1.0)' },
-                { min: 17.232, max: 19.35, color: 'rgba(142,208,140,1.0)' },
-                { min: 19.35, max: 20.718, color: 'rgba(102,189,111,1.0)' },
-                { min: 20.718, max: 23.078, color: 'rgba(61,167,90,1.0)' },
-                { min: 23.078, max: 24.326, color: 'rgba(36,140,69,1.0)' },
-                { min: 24.326, max: 26.47, color: 'rgba(3,112,46,1.0)' },
-                { min: 26.47, max: 31.84, color: 'rgba(0,68,27,1.0)' }
-            ];
-        } else if (layerName === 'layer_osobywwiekuprodukcyjnym2023_9') {
-            ranges = [
-                { min: 47.94, max: 49.242, color: 'rgba(247,251,255,1.0)' },
-                { min: 49.242, max: 50.574, color: 'rgba(226,237,248,1.0)' },
-                { min: 50.574, max: 52.31, color: 'rgba(205,224,241,1.0)' },
-                { min: 52.31, max: 53.57, color: 'rgba(175,209,231,1.0)' },
-                { min: 53.57, max: 54.32, color: 'rgba(137,190,220,1.0)' },
-                { min: 54.32, max: 55.838, color: 'rgba(96,166,210,1.0)' },
-                { min: 55.838, max: 56.602, color: 'rgba(62,142,196,1.0)' },
-                { min: 56.602, max: 58.19, color: 'rgba(34,114,181,1.0)' },
-                { min: 58.19, max: 59.098, color: 'rgba(10,84,158,1.0)' },
-                { min: 59.098, max: 70.8, color: 'rgba(8,48,107,1.0)' }
-            ];
-        } else if (layerName === 'layer_sumamieszkancow2023_10') {
-            ranges = [
-                { min: 12, max: 698.6, color: 'rgba(252,251,253,1.0)' },
-                { min: 698.6, max: 1115.4, color: 'rgba(241,239,246,1.0)' },
-                { min: 1115.4, max: 1961, color: 'rgba(224,224,238,1.0)' },
-                { min: 1961, max: 2553.2, color: 'rgba(201,202,227,1.0)' },
-                { min: 2553.2, max: 4114, color: 'rgba(175,174,212,1.0)' },
-                { min: 4114, max: 6151, color: 'rgba(150,146,196,1.0)' },
-                { min: 6151, max: 8481.6, color: 'rgba(124,118,182,1.0)' },
-                { min: 8481.6, max: 13814.8, color: 'rgba(102,73,159,1.0)' },
-                { min: 13814.8, max: 19154, color: 'rgba(86,42,144,1.0)' },
-                { min: 19154, max: 54830, color: 'rgba(63,0,125,1.0)' }
-            ];
-        }else if (layerName === 'layer_roznicawliczbiemieszkancow2023_11') {
-            ranges = [
-                { min: -15769, max: -6315.6, color: 'rgba(123,50,148,1.0)' },
-                { min: -6315.6, max: -2647.2, color: 'rgba(155,101,174,1.0)' },
-                { min: -2647.2, max: -953, color: 'rgba(186,152,200,1.0)' },
-                { min: -953, max: -245.4, color: 'rgba(212,192,220,1.0)' },
-                { min: -245.4, max: 14, color: 'rgba(235,229,238,1.0)' },
-                { min: 14, max: 459.6, color: 'rgba(229,241,228,1.0)' },
-                { min: 459.6, max: 1455, color: 'rgba(193,228,189,1.0)' },
-                { min: 1455, max: 2591.4, color: 'rgba(148,210,148,1.0)' },
-                { min: 2591.4, max: 4592.2, color: 'rgba(74,173,102,1.0)' },
-                { min: 4592.2, max: 8864, color: 'rgba(0,136,55,1.0)' }
-            ];
-        }
-
-                ranges.forEach(function(range) {
-                    var item = document.createElement('div');
-                    item.className = 'legend-item';
-                    var colorBox = document.createElement('div');
-                    colorBox.className = 'legend-color';
-                    colorBox.style.backgroundColor = range.color;
-                    item.appendChild(colorBox);
-                    var label = document.createTextNode(range.min + ' - ' + range.max);
-                    item.appendChild(label);
-                    legend.appendChild(item);
-                });
-            }
-
-            // Call updateLegend when the layer is added to the map
-            map.on('layeradd', function(event) {
-                updateLegend(event.layer.options.layerName);
-            });
-        
-        </script>
-        <script>
         var highlightLayer;
         function highlightFeature(e) {
             highlightLayer = e.target;
@@ -2524,20 +2353,30 @@
         document.getElementsByClassName('search-button')[0].className +=
          ' fa fa-binoculars';
         
-        var suma_mieszkancow = L.layerGroup([layer_sumamieszkancow2023_10, layer_sumamieszkancow1998_5]);
-        var roznica_w_liczbie_mieszkancow = L.layerGroup([layer_roznicawliczbiemieszkancow2023_11]);
-        var osoby_w_wieku_produkcyjnym = L.layerGroup([layer_osobywwiekuprodukcyjnym2023_9, layer_osobywwiekuprodukcyjnym1998_4]);
-        var dzieci = L.layerGroup([layer_dzieci2023_8, layer_dzieci1998_3]);
-        var seniorzy = L.layerGroup([layer_seniorzy2023_7, layer_seniorzy1998_2]);
-        var gestosc =  L.layerGroup([layer_gestosczaludnienia2023_6, layer_gestosczaludnienia1998_1]);
-
-        var overlays = {
-            "Suma mieszkańców": suma_mieszkancow,
-            "Różnica w liczbie mieszkańców": roznica_w_liczbie_mieszkancow,
-            "% osób w wieku produkcyjnym": osoby_w_wieku_produkcyjnym,
-            "% dzieci": dzieci,
-            "% seniorów": seniorzy,
-            "Gęstość zaludnienia": gestosc,
+        var layersMap = {
+            'Suma mieszkańców': {
+                1998: layer_sumamieszkancow1998_5,
+                2023: layer_sumamieszkancow2023_10,
+            },
+            'Różnica w liczbie mieszkańców': {
+                2023: layer_roznicawliczbiemieszkancow2023_11,
+            },
+            '% osób w wieku produkcyjnym': {
+                1998: layer_osobywwiekuprodukcyjnym1998_4,
+                2023: layer_osobywwiekuprodukcyjnym2023_9,
+            },
+            '% dzieci': {
+                1998: layer_dzieci1998_3,
+                2023: layer_dzieci2023_8,
+            },
+            '% seniorów': {
+                1998: layer_seniorzy1998_2,
+                2023: layer_seniorzy2023_7,
+            },
+            'Gęstość zaludnienia': {
+                1998: layer_gestosczaludnienia1998_1,
+                2023: layer_gestosczaludnienia2023_6,
+            },
         };
     var selectedLayer = 'dzieci'; 
     var currentYear = 2023;
@@ -2549,38 +2388,8 @@
             }
         });
 
-        if (selectedLayer === 'Suma mieszkańców') {
-            if (currentYear === 1998) {
-                layer_sumamieszkancow1998_5.addTo(map);
-            } else if (currentYear === 2023) {
-                layer_sumamieszkancow2023_10.addTo(map);
-            }
-        } else if (selectedLayer === 'Różnica w liczbie mieszkańców') {
-            layer_roznicawliczbiemieszkancow2023_11.addTo(map);
-        } else if (selectedLayer === '% osób w wieku produkcyjnym') {
-            if (currentYear === 1998) {
-                layer_osobywwiekuprodukcyjnym1998_4.addTo(map);
-            } else if (currentYear === 2023) {
-                layer_osobywwiekuprodukcyjnym2023_9.addTo(map);
-            }
-        } else if (selectedLayer === '% dzieci') {
-            if (currentYear === 1998) {
-                layer_dzieci1998_3.addTo(map);
-            } else if (currentYear === 2023) {
-                layer_dzieci2023_8.addTo(map);
-            }
-        } else if (selectedLayer === '% seniorów') {
-            if (currentYear === 1998) {
-                layer_seniorzy1998_2.addTo(map);
-            } else if (currentYear === 2023) {
-                layer_seniorzy2023_7.addTo(map);
-            }
-        } else if (selectedLayer === 'Gęstość zaludnienia') {
-            if (currentYear === 1998) {
-                layer_gestosczaludnienia1998_1.addTo(map);
-            } else if (currentYear === 2023) {
-                layer_gestosczaludnienia2023_6.addTo(map);
-            }
+        if (layersMap[selectedLayer] && layersMap[selectedLayer][currentYear]) {
+            layersMap[selectedLayer][currentYear].addTo(map);
         }
     }
 
@@ -2591,7 +2400,7 @@
     //    updateLayers();
     //});    
     var radioContainer = L.DomUtil.create('div', 'radio-container');
-        for (var key in overlays) {
+        for (var key in layersMap) {
             var radioItem = L.DomUtil.create('div', 'radio-item', radioContainer);
             var radioInput = L.DomUtil.create('input', '', radioItem);
             radioInput.type = 'radio';
@@ -2614,17 +2423,197 @@
 
         L.DomUtil.get(map.getContainer()).appendChild(radioContainer);
 
+        const yearSlider = document.getElementById('year-slider');
+        const selectedYearSpan = document.getElementById('selected-year');
 
-    const yearSlider = document.getElementById('year-slider');
-    const selectedYearSpan = document.getElementById('selected-year');
+        yearSlider.addEventListener('input', function () {
+            currentYear = parseInt(this.value, 10);
+            selectedYearSpan.textContent = currentYear;
+            updateLayers();
+        });
 
-    yearSlider.addEventListener('input', function () {
-        currentYear = parseInt(this.value, 10);
-        selectedYearSpan.textContent = currentYear;
         updateLayers();
-    });
 
-    updateLayers();
+        var currentLayer = null;
+            function updateLegend(layerName) {
+                var legend = document.getElementById('legend');
+                legend.innerHTML = ''; // Clear existing legend
+
+                var ranges = [];
+
+                if (layerName === 'layer_gestosczaludnienia1998_1') {
+                    ranges = [
+                        { min: 16, max: 420.4, color: 'rgba(255,255,212,1.0)' },
+                        { min: 420.4, max: 820.8, color: 'rgba(255,238,181,1.0)' },
+                        { min: 820.8, max: 1221.2, color: 'rgba(254,221,150,1.0)' },
+                        { min: 1221.2, max: 1621.6, color: 'rgba(254,196,108,1.0)' },
+                        { min: 1621.6, max: 2022, color: 'rgba(254,167,63,1.0)' },
+                        { min: 2022, max: 2422.4, color: 'rgba(246,140,35,1.0)' },
+                        { min: 2422.4, max: 2822.8, color: 'rgba(229,114,23,1.0)' },
+                        { min: 2822.8, max: 3223.2, color: 'rgba(210,90,13,1.0)' },
+                        { min: 3223.2, max: 3623.6, color: 'rgba(181,71,8,1.0)' },
+                        { min: 3623.6, max: 20040, color: 'rgba(153,52,4,1.0)' }
+                    ];
+                } else if (layerName === 'layer_seniorzy1998_2') {
+            ranges = [
+                { min: 0, max: 13.746, color: 'rgba(247,252,245,1.0)' },
+                { min: 13.746, max: 15.292, color: 'rgba(232,246,227,1.0)' },
+                { min: 15.292, max: 16.39, color: 'rgba(208,236,201,1.0)' },
+                { min: 16.39, max: 17.232, color: 'rgba(178,224,171,1.0)' },
+                { min: 17.232, max: 19.35, color: 'rgba(142,208,140,1.0)' },
+                { min: 19.35, max: 20.718, color: 'rgba(102,189,111,1.0)' },
+                { min: 20.718, max: 23.078, color: 'rgba(61,167,90,1.0)' },
+                { min: 23.078, max: 24.326, color: 'rgba(36,140,69,1.0)' },
+                { min: 24.326, max: 26.47, color: 'rgba(3,112,46,1.0)' },
+                { min: 26.47, max: 31.84, color: 'rgba(0,68,27,1.0)' }
+            ];
+        } else if (layerName === 'layer_dzieci1998_3') {
+            ranges = [
+                { min: 0, max: 13.746, color: 'rgba(247,252,245,1.0)' },
+                { min: 13.746, max: 15.292, color: 'rgba(232,246,227,1.0)' },
+                { min: 15.292, max: 16.39, color: 'rgba(208,236,201,1.0)' },
+                { min: 16.39, max: 17.232, color: 'rgba(178,224,171,1.0)' },
+                { min: 17.232, max: 19.35, color: 'rgba(142,208,140,1.0)' },
+                { min: 19.35, max: 20.718, color: 'rgba(102,189,111,1.0)' },
+                { min: 20.718, max: 23.078, color: 'rgba(61,167,90,1.0)' },
+                { min: 23.078, max: 24.326, color: 'rgba(36,140,69,1.0)' },
+                { min: 24.326, max: 26.47, color: 'rgba(3,112,46,1.0)' },
+                { min: 26.47, max: 31.84, color: 'rgba(0,68,27,1.0)' }
+            ];
+        } else if (layerName === 'layer_osobywwiekuprodukcyjnym1998_4') {
+            ranges = [
+                { min: 47.94, max: 49.242, color: 'rgba(247,251,255,1.0)' },
+                { min: 49.242, max: 50.574, color: 'rgba(226,237,248,1.0)' },
+                { min: 50.574, max: 52.31, color: 'rgba(205,224,241,1.0)' },
+                { min: 52.31, max: 53.57, color: 'rgba(175,209,231,1.0)' },
+                { min: 53.57, max: 54.32, color: 'rgba(137,190,220,1.0)' },
+                { min: 54.32, max: 55.838, color: 'rgba(96,166,210,1.0)' },
+                { min: 55.838, max: 56.602, color: 'rgba(62,142,196,1.0)' },
+                { min: 56.602, max: 58.19, color: 'rgba(34,114,181,1.0)' },
+                { min: 58.19, max: 59.098, color: 'rgba(10,84,158,1.0)' },
+                { min: 59.098, max: 70.8, color: 'rgba(8,48,107,1.0)' }
+            ];
+        } else if (layerName === 'layer_sumamieszkancow1998_5') {
+            ranges = [
+                { min: 12, max: 698.6, color: 'rgba(252,251,253,1.0)' },
+                { min: 698.6, max: 1115.4, color: 'rgba(241,239,246,1.0)' },
+                { min: 1115.4, max: 1961, color: 'rgba(224,224,238,1.0)' },
+                { min: 1961, max: 2553.2, color: 'rgba(201,202,227,1.0)' },
+                { min: 2553.2, max: 4114, color: 'rgba(175,174,212,1.0)' },
+                { min: 4114, max: 6151, color: 'rgba(150,146,196,1.0)' },
+                { min: 6151, max: 8481.6, color: 'rgba(124,118,182,1.0)' },
+                { min: 8481.6, max: 13814.8, color: 'rgba(102,73,159,1.0)' },
+                { min: 13814.8, max: 19154, color: 'rgba(86,42,144,1.0)' },
+                { min: 19154, max: 54830, color: 'rgba(63,0,125,1.0)' }
+            ];
+        } else if (layerName === 'layer_gestosczaludnienia2023_6') {
+            ranges = [
+                { min: 16, max: 420.4, color: 'rgba(255,255,212,1.0)' },
+                { min: 420.4, max: 820.8, color: 'rgba(255,238,181,1.0)' },
+                { min: 820.8, max: 1221.2, color: 'rgba(254,221,150,1.0)' },
+                { min: 1221.2, max: 1621.6, color: 'rgba(254,196,108,1.0)' },
+                { min: 1621.6, max: 2022, color: 'rgba(254,167,63,1.0)' },
+                { min: 2022, max: 2422.4, color: 'rgba(246,140,35,1.0)' },
+                { min: 2422.4, max: 2822.8, color: 'rgba(229,114,23,1.0)' },
+                { min: 2822.8, max: 3223.2, color: 'rgba(210,90,13,1.0)' },
+                { min: 3223.2, max: 3623.6, color: 'rgba(181,71,8,1.0)' },
+                { min: 3623.6, max: 20040, color: 'rgba(153,52,4,1.0)' }
+            ];
+        } else if (layerName === 'layer_seniorzy2023_7') {
+            ranges = [
+                { min: 0, max: 13.746, color: 'rgba(247,252,245,1.0)' },
+                { min: 13.746, max: 15.292, color: 'rgba(232,246,227,1.0)' },
+                { min: 15.292, max: 16.39, color: 'rgba(208,236,201,1.0)' },
+                { min: 16.39, max: 17.232, color: 'rgba(178,224,171,1.0)' },
+                { min: 17.232, max: 19.35, color: 'rgba(142,208,140,1.0)' },
+                { min: 19.35, max: 20.718, color: 'rgba(102,189,111,1.0)' },
+                { min: 20.718, max: 23.078, color: 'rgba(61,167,90,1.0)' },
+                { min: 23.078, max: 24.326, color: 'rgba(36,140,69,1.0)' },
+                { min: 24.326, max: 26.47, color: 'rgba(3,112,46,1.0)' },
+                { min: 26.47, max: 31.84, color: 'rgba(0,68,27,1.0)' }
+            ];
+        } else if (layerName === 'layer_dzieci2023_8') {
+            ranges = [
+                { min: 0, max: 13.746, color: 'rgba(247,252,245,1.0)' },
+                { min: 13.746, max: 15.292, color: 'rgba(232,246,227,1.0)' },
+                { min: 15.292, max: 16.39, color: 'rgba(208,236,201,1.0)' },
+                { min: 16.39, max: 17.232, color: 'rgba(178,224,171,1.0)' },
+                { min: 17.232, max: 19.35, color: 'rgba(142,208,140,1.0)' },
+                { min: 19.35, max: 20.718, color: 'rgba(102,189,111,1.0)' },
+                { min: 20.718, max: 23.078, color: 'rgba(61,167,90,1.0)' },
+                { min: 23.078, max: 24.326, color: 'rgba(36,140,69,1.0)' },
+                { min: 24.326, max: 26.47, color: 'rgba(3,112,46,1.0)' },
+                { min: 26.47, max: 31.84, color: 'rgba(0,68,27,1.0)' }
+            ];
+        } else if (layerName === 'layer_osobywwiekuprodukcyjnym2023_9') {
+            ranges = [
+                { min: 47.94, max: 49.242, color: 'rgba(247,251,255,1.0)' },
+                { min: 49.242, max: 50.574, color: 'rgba(226,237,248,1.0)' },
+                { min: 50.574, max: 52.31, color: 'rgba(205,224,241,1.0)' },
+                { min: 52.31, max: 53.57, color: 'rgba(175,209,231,1.0)' },
+                { min: 53.57, max: 54.32, color: 'rgba(137,190,220,1.0)' },
+                { min: 54.32, max: 55.838, color: 'rgba(96,166,210,1.0)' },
+                { min: 55.838, max: 56.602, color: 'rgba(62,142,196,1.0)' },
+                { min: 56.602, max: 58.19, color: 'rgba(34,114,181,1.0)' },
+                { min: 58.19, max: 59.098, color: 'rgba(10,84,158,1.0)' },
+                { min: 59.098, max: 70.8, color: 'rgba(8,48,107,1.0)' }
+            ];
+        } else if (layerName === 'layer_sumamieszkancow2023_10') {
+            ranges = [
+                { min: 12, max: 698.6, color: 'rgba(252,251,253,1.0)' },
+                { min: 698.6, max: 1115.4, color: 'rgba(241,239,246,1.0)' },
+                { min: 1115.4, max: 1961, color: 'rgba(224,224,238,1.0)' },
+                { min: 1961, max: 2553.2, color: 'rgba(201,202,227,1.0)' },
+                { min: 2553.2, max: 4114, color: 'rgba(175,174,212,1.0)' },
+                { min: 4114, max: 6151, color: 'rgba(150,146,196,1.0)' },
+                { min: 6151, max: 8481.6, color: 'rgba(124,118,182,1.0)' },
+                { min: 8481.6, max: 13814.8, color: 'rgba(102,73,159,1.0)' },
+                { min: 13814.8, max: 19154, color: 'rgba(86,42,144,1.0)' },
+                { min: 19154, max: 54830, color: 'rgba(63,0,125,1.0)' }
+            ];
+        }else if (layerName === 'layer_roznicawliczbiemieszkancow2023_11') {
+            ranges = [
+                { min: -15769, max: -6315.6, color: 'rgba(123,50,148,1.0)' },
+                { min: -6315.6, max: -2647.2, color: 'rgba(155,101,174,1.0)' },
+                { min: -2647.2, max: -953, color: 'rgba(186,152,200,1.0)' },
+                { min: -953, max: -245.4, color: 'rgba(212,192,220,1.0)' },
+                { min: -245.4, max: 14, color: 'rgba(235,229,238,1.0)' },
+                { min: 14, max: 459.6, color: 'rgba(229,241,228,1.0)' },
+                { min: 459.6, max: 1455, color: 'rgba(193,228,189,1.0)' },
+                { min: 1455, max: 2591.4, color: 'rgba(148,210,148,1.0)' },
+                { min: 2591.4, max: 4592.2, color: 'rgba(74,173,102,1.0)' },
+                { min: 4592.2, max: 8864, color: 'rgba(0,136,55,1.0)' }
+            ];
+        }
+
+                ranges.forEach(function(range) {
+                    var item = document.createElement('div');
+                    item.className = 'legend-item';
+                    var colorBox = document.createElement('div');
+                    colorBox.className = 'legend-color';
+                    colorBox.style.backgroundColor = range.color;
+                    item.appendChild(colorBox);
+                    var label = document.createTextNode(range.min + ' - ' + range.max);
+                    item.appendChild(label);
+                    legend.appendChild(item);
+                });
+            }
+            
+
+            map.on('overlayadd', function(event) {
+                updateLegend(event.layer.options.layerName);
+            });
+
+            map.on('overlayremove', function() {
+                var legend = document.getElementById('legend');
+                legend.innerHTML = ''; 
+            });
+
+            
+            L.control.Legend({
+                position: 'bottomleft',
+                legends: [] 
+            }).addTo(map);
         </script>
     </body>
 </html>
